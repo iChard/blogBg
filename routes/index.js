@@ -12,8 +12,6 @@ var admin = require('./admin');
 
 /* GET home page. */
 router.use('/', function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-	res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, OPTIONS');
 	next();
 })
 
@@ -31,6 +29,7 @@ let queryArticleWithComments = (res, connection, article) => {
 
 router.post('/saveArticle', function(req, res) {
 	let reqData = req.body;
+	console.log('收到saveArticle接口')
 	db.pool.getConnection((err, connection) => {
 		if(err) throw err;
 		var sql = 'INSERT INTO articles SET ?';
