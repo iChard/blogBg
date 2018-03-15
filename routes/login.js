@@ -8,7 +8,6 @@ var identityKey = 'skey';
 
 router.post('/login', function(req, res, err) {
     if(err) console.error(err);
-    
     // req.session.regenerate((err) => {
     //     if(err) {
     //         com.sendJson(res, {result: 701, message: '登录失败！'});
@@ -20,9 +19,8 @@ router.post('/login', function(req, res, err) {
 })
 
 router.get('/logout', (req, res, next) => {
-    console.log('req.session.loginUser:', req.session);
     req.session.loginUser = null;
-    res.redirect('/login');
+    com.sendJson(res)
 })
 
 module.exports = router;

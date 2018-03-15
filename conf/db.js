@@ -2,6 +2,7 @@ let mysql = require('mysql');
 let conf = {
     host: '127.0.0.1',
     user: 'root',
+    // password: '!95549LOVE',
     password: 'admin123',
     database: 'test',
     port: 3306
