@@ -30,6 +30,7 @@ let queryArticleWithComments = (res, connection, article) => {
 }
 
 router.post('/saveArticle', function(req, res) {
+	console.log(2323)
 	let reqData = req.body;
 	db.pool.getConnection((err, connection) => {
 		if(err) throw err;
