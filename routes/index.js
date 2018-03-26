@@ -28,7 +28,6 @@ let queryArticleWithComments = (res, connection, article) => {
 }
 
 router.post('/saveArticle', function(req, res) {
-	console.log(2323)
 	let reqData = req.body;
 	console.log('收到saveArticle接口')
 	db.pool.getConnection((err, connection) => {
@@ -61,6 +60,8 @@ router.get('/article/:id', (req, res) => {
 		})		
 	})
 })
+
+
 
 
 module.exports = router;

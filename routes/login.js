@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../conf/db');
 var com = require('../lib/com');
-var sqls = require('../lib/db/sqls');
+var sqls = require('../lib/sqls');
 
 var identityKey = 'skey';
 
