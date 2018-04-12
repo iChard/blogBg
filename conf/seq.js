@@ -1,8 +1,11 @@
-const Sequelize = require('sequelize');
+import Sequelize, { DATE, STRING } from "sequelize";
 const sequelize = new Sequelize('test', 'root', 'admin123', {
     host: '127.0.0.1',
     dialect: 'mysql',
     operatorsAliases: false,
+    define: {
+        underscored: true
+    },
     pool: {
         max: 5,
         min: 0,
@@ -21,25 +24,25 @@ sequelize
 
 const User = sequelize.define('accountUser', {
     created: {
-        type: Sequelize.DATE,
+        type: DATE,
         validate: {
             len: 8
         }
     },
     name: {
-        type: Sequelize.STRING
+        type: STRING
     }
 }, {
-    timestamps: true,
-    paranoid: false,
-    comment: '测试表'
-})
+        timestamps: true,
+        paranoid: false,
+        comment: '测试表'
+    })
 
 // const Project = sequelize.import(__dirname+'/models/project')
 
-User.sync({force: true})
+User.sync({ force: true })
     .then(() => {
-        User.build({created: new Date(), name: '哈文'})
+        User.build({ created: new Date(), name: '哈文' })
         return User.create({
             name: '张希',
             created: new Date()
@@ -47,6 +50,6 @@ User.sync({force: true})
     }).then(() => {
         User.findAll().then(users => {
             console.log('users:', users);
-            
+
         })
     })

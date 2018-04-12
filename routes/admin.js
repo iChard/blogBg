@@ -8,20 +8,22 @@ var moment = require('moment');
 
 //允许post del的ip地址
 let allowIp = [
-    '183.134.110.210'
+    '183.134.110.210',
+    '125.118.7.162'
 ]
 
 const format = 'YYYY-MM-DD HH:mm:ss';
 
 router.use('/', (req, res, next) => {
-    if(req.session && req.session.loginUser) {
-        next();
-    } else {
-        com.sendJson(res, null, {
-            message: '未登录哦，请先登录吧',
-            result: 700
-        })
-    }
+    // if(req.session && req.session.loginUser) {
+    //     next();
+    // } else {
+    //     com.sendJson(res, null, {
+    //         message: '未登录哦，请先登录吧',
+    //         result: 700
+    //     })
+    // }
+    next();
 })
 
 router.post('/*', (req, res, next) => {
@@ -56,9 +58,12 @@ router.get('/user', (req, res) => {
 })
 
 router.get('/articlesRelief', (req, res) => {
+    let pageNo = req.query.pageNo * 1 ? req.query.pageNo * 1 - 1 : 0;
+	let pageSize = req.query.pageSize ? req.query.pageSize * 1 : 10;
+	let p = [pageNo * pageSize, pageSize];
     db.pool.getConnection((err, connection) => {
         if (err) throw err;
-        connection.query(sqls.articles.articlesRelief, (e, results, fields) => {
+        connection.query(sqls.articles.articlesRelief, p,  (e, results, fields) => {
             let nlist = results.map(item => com.objectKeyToHump(item));
             com.sendJson(res, nlist);
             connection.release();
@@ -71,7 +76,8 @@ router.get('/article/:id', (req, res) => {
         if (err) throw err;
         var { id } = req.params;
         connection.query('SELECT * FROM ?? WHERE ??=?', ['articles', 'id', id], (e, results, fields) => {
-            com.sendJson(res, results[0]);
+            let r = com.objectKeyToHump(results[0]);
+            com.sendJson(res, r);
             connection.release();
         })
     })
@@ -79,10 +85,10 @@ router.get('/article/:id', (req, res) => {
 
 router.post('/editArticle/:id', (req, res) => {
     let { id } = req.params;
-    let { title, updated, content, tags, category } = req.body;
+    let { title, updated, content, tagIds, tagNames, cateIds, cateNames } = req.body;
     db.pool.getConnection((err, connection) => {
         if (err) throw err;
-        connection.query(sqls.articles.editArticleById, [title, new Date(updated), content, tags, category, id], (e) => {
+        connection.query(sqls.articles.editArticleById, [title, new Date(updated), content, tagIds, tagNames, cateIds, cateNames, id], (e) => {
             if (e) throw e;
             com.sendJson(res);
             connection.release();

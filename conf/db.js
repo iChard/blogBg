@@ -1,4 +1,5 @@
-let mysql = require('mysql');
+var mysql = require('mysql');
+
 let conf = {
     host: '127.0.0.1',
     user: 'root',
