@@ -5,7 +5,7 @@
 
 ## 依赖环境
 
-mac10.12.6、node7.6.0
+mac10.12.6、node7.6.0、先根据下面的数据库方案建好表结构
 
 ## 步骤（这里介绍的是配合后端项目一起）
 
@@ -45,4 +45,58 @@ mac10.12.6、node7.6.0
             proxy_pass http://127.0.0.1:3000;
         }
     }
+```
+
+## mysql数据库
+
+数据库名称
+test
+
+包含表
+
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqfxesh2acj30mm05m3yt.jpg)
+
+表结构
+
+```sql
+# account表
+CREATE TABLE `accounts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='测试表';
+
+# articles表
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text,
+  `created` datetime DEFAULT NULL,
+  `tag_names` varchar(1024) DEFAULT NULL,
+  `cate_names` varchar(1024) DEFAULT NULL,
+  `title` varchar(1024) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `tag_ids` varchar(1024) DEFAULT NULL,
+  `cate_ids` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+
+# categories表
+CREATE TABLE `categories` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+
+# tags表
+CREATE TABLE `tags` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+
 ```
