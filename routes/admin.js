@@ -9,7 +9,8 @@ var moment = require('moment');
 //允许post del的ip地址
 let allowIp = [
     '183.134.110.210',
-    '125.118.7.162'
+    '125.118.7.162',
+    '115.204.89.166'
 ]
 
 const format = 'YYYY-MM-DD HH:mm:ss';
